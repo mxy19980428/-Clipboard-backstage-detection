@@ -22,6 +22,7 @@ onCreate() —> onBind() —> onUnbind() –> onDestory();
 4）最后不再需要服务时，stopService(intent)终止服务。
 
 ###############################################
+
 结合 ClipboardManager方法的使用！
 clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         clipboardManager.addPrimaryClipChangedListener(new ClipboardManager.OnPrimaryClipChangedListener() {
@@ -30,6 +31,7 @@ clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE
                 ClipData.Item itemAt = clipboardManager.getPrimaryClip().getItemAt(0);
                 ss = itemAt.getText().toString();
                 Log.d("ttm.", "监听到剪切板中的内容:" + ss);
+		
 ###############################################
 
 Service 构建接口 Callback 使用 onBind方法 实现回调传参
@@ -51,6 +53,7 @@ Service 构建接口 Callback 使用 onBind方法 实现回调传参
         this.callback = callback;
     }
 ###############################################
+
 使用 BindService 方法启用 Service 
 	
   private ServiceConnection connection = new ServiceConnection() {
@@ -66,4 +69,5 @@ Service 构建接口 Callback 使用 onBind方法 实现回调传参
         }
   bindService(intent, connection, BIND_AUTO_CREATE); //BIND_AUTO_CREATE
  调用服务功能结束后，unbindService(connection)解除绑定服务，置空中介对象；
+ 
 ###############################################
