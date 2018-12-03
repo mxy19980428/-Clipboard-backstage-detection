@@ -56,6 +56,7 @@ clipboardManager = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE
 Service 构建接口 Callback 使用 onBind方法 实现回调传参
 
   public IBinder onBind(Intent intent) {
+  
         return new Binder1();
 	
     }
@@ -63,33 +64,47 @@ Service 构建接口 Callback 使用 onBind方法 实现回调传参
   public class Binder1 extends Binder {
   
         public ClipboardService getService() {
+	
             return ClipboardService.this;
+	    
         }
     }
   
   public interface Callback {
+  
         void onData(String data);
+	
     }
 
   public void setCallback(Callback callback) {
+  
         this.callback = callback;
+	
     }
+    
 ###############################################
 
 使用 BindService 方法启用 Service 
 	
   private ServiceConnection connection = new ServiceConnection() {
+  
         @Override
         public void onServiceConnected(ComponentName name, IBinder Ibinder) {
+	
             ClipboardService.Binder1 binder = (ClipboardService.Binder1) Ibinder;
+	    
             binder.getService().setCallback(new ClipboardService.Callback() {
+	    
                 @Override
                 public void onData(String data) {
+		
                     datalist.add(data);
+		    
                 }
             });
         }
   bindService(intent, connection, BIND_AUTO_CREATE); //BIND_AUTO_CREATE
+  
  调用服务功能结束后，unbindService(connection)解除绑定服务，置空中介对象；
  
 ###############################################
